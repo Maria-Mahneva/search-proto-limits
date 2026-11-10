@@ -682,6 +682,23 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .dl-btn{padding:12px 16px 0}
 .dl-btn button{width:100%;height:52px;border-radius:20px;background:#2f2f37;color:#fff;display:flex;align-items:center;justify-content:center;font:var(--fw-medium) 17px/20px var(--f)}
 .dl-home img{width:100%;height:34px;display:block}
+/* Иконки «?» и тултипы (вложенный лимит, Figma 1113:33327) */
+.dl-tot p{display:flex;align-items:center;gap:6px}
+.dl-c .h span{display:flex;align-items:center;gap:6px}
+.dl-q{all:unset;cursor:pointer;width:16px;height:16px;display:block;flex:none;position:relative}
+.dl-q:after{content:&quot;&quot;;position:absolute;inset:-10px}
+.dl-q img{display:block}
+.dl-q:focus-visible{outline:2px solid #a73afd;outline-offset:2px;border-radius:50%}
+.dl-tip{position:absolute;z-index:5;display:flex;flex-direction:column;filter:drop-shadow(0 4px 16px rgba(0,0,0,.12))}
+.dl-tip[hidden]{display:none}
+.dl-tip .ar{display:block;position:relative;flex:none}
+.dl-tip.dn .ar{order:2}
+.dl-tip.up .ar{transform:rotate(180deg)}
+.dl-tip .bx{background:#18181b;border-radius:12px;padding:8px 12px;display:flex;gap:4px;align-items:flex-start}
+.dl-tip p{flex:1;margin:0;font:400 13px/17px var(--f);color:#f6f6f9}
+.dl-tip .x{all:unset;cursor:pointer;width:12px;height:16px;display:flex;align-items:center;justify-content:center;position:relative}
+.dl-tip .x:after{content:&quot;&quot;;position:absolute;inset:-10px}
+.dl-tip .x svg{width:16px;height:16px;flex:none}
 @media (prefers-reduced-motion:reduce){.dl-scrim,.dl-wrap{transition:none}}
 
 .co-sticky .go .g2{display:none;width:100%;align-items:center;justify-content:space-between}
@@ -1289,25 +1306,26 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   &lt;div class=&quot;dl-scrim&quot; data-dl-close&gt;&lt;/div&gt;
   &lt;div class=&quot;dl-wrap&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-label=&quot;Детализация лимитов&quot;&gt;
     &lt;div class=&quot;dl-hd&quot;&gt;&lt;i data-dl-close&gt;&lt;/i&gt;&lt;/div&gt;
-    &lt;div class=&quot;dl-tot&quot;&gt;&lt;p&gt;Доступный лимит&lt;/p&gt;&lt;div&gt;&lt;b&gt;123 000 ₽&lt;/b&gt;&lt;span&gt;из 150 000 ₽&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;dl-tot&quot;&gt;&lt;p&gt;Всего доступно&lt;button class=&quot;dl-q&quot; data-tip=&quot;tot&quot; aria-label=&quot;Подробнее&quot;&gt;&lt;img src=&quot;data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgMTYgMTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSIyNC9GaWxsL3F1ZXN0aW9uRmlsbCIgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzBfNjQ0KSI+CjxwYXRoIGlkPSJVbmlvbiIgZD0iTTggMC42NjY5OTJDMTIuMDUwMSAwLjY2Njk5MiAxNS4zMzMgMy45NDk5MSAxNS4zMzMgOEMxNS4zMzMgMTIuMDUwMSAxMi4wNTAxIDE1LjMzMyA4IDE1LjMzM0MzLjk0OTkxIDE1LjMzMyAwLjY2Njk5MiAxMi4wNTAxIDAuNjY2OTkyIDhDMC42NjY5OTIgMy45NDk5MSAzLjk0OTkxIDAuNjY2OTkyIDggMC42NjY5OTJaTTggMTBDNy40NDc3MiAxMCA3IDEwLjQ0NzcgNyAxMUM3IDExLjU1MjMgNy40NDc3MiAxMiA4IDEySDguMDA2ODRDOC41NTkwNCAxMS45OTk5IDkuMDA2ODQgMTEuNTUyMiA5LjAwNjg0IDExQzkuMDA2ODQgMTAuNDQ3OCA4LjU1OTA0IDEwLjAwMDEgOC4wMDY4NCAxMEg4Wk04LjAyMzQ0IDQuMzMzMDFDNi45MjA0IDQuMzMzMDEgNS45NTg5MyA1LjA4NDIgNS42OTE0MSA2LjE1NDNMNS42ODY1MiA2LjE3MTg4QzUuNTk3MzcgNi41MjkgNS44MTQ3NSA2Ljg5MTE5IDYuMTcxODggNi45ODA0N0M2LjUyODk3IDcuMDY5NTYgNi44OTEyIDYuODUyMjEgNi45ODA0NyA2LjQ5NTEyTDYuOTg0MzggNi40Nzc1NEM3LjEwMzUxIDYuMDAwOTkgNy41MzIyMyA1LjY2Njk5IDguMDIzNDQgNS42NjY5OUg4LjE3NzczQzguNTYzOTQgNS42NjY5OSA4LjkwMzYgNS45MjI2MyA5LjAwOTc3IDYuMjkzOTVDOS4xMjQxNCA2LjY5NDI0IDguOTM2ODEgNy4xMTk0OCA4LjU2NDQ1IDcuMzA1NjZMNy43MDIxNSA3LjczNzNDNy4zNzI4MyA3LjkwMTk2IDcuMjM4NjYgOC4zMDI1MiA3LjQwMzMyIDguNjMxODRDNy41Njc5OCA4Ljk2MDk3IDcuOTY4NjMgOS4wOTQxMyA4LjI5Nzg1IDguOTI5NjlMOS4xNjExMyA4LjQ5ODA1QzEwLjEwNzMgOC4wMjQ5IDEwLjU4MjYgNi45NDQ5MyAxMC4yOTIgNS45Mjc3M0MxMC4wMjIzIDQuOTgzOTUgOS4xNTkyOSA0LjMzMzAxIDguMTc3NzMgNC4zMzMwMUg4LjAyMzQ0WiIgZmlsbD0iI0M0QzRENCIvPgo8L2c+CjxkZWZzPgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzBfNjQ0Ij4KPHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=&quot; width=&quot;16&quot; height=&quot;16&quot; alt=&quot;&quot;&gt;&lt;/button&gt;&lt;/p&gt;&lt;div&gt;&lt;b&gt;123 000 ₽&lt;/b&gt;&lt;span&gt;из 150 000 ₽&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
     &lt;div class=&quot;dl-cards&quot;&gt;
       &lt;div class=&quot;dl-c&quot;&gt;
-        &lt;div class=&quot;top&quot;&gt;&lt;div class=&quot;h&quot;&gt;&lt;span&gt;Частями Лайт&lt;/span&gt;&lt;b&gt;123 000 ₽&lt;/b&gt;&lt;/div&gt;&lt;div class=&quot;dl-bar&quot;&gt;&lt;i style=&quot;width:82%;background:#1ab266&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;top&quot;&gt;&lt;div class=&quot;h&quot;&gt;&lt;span&gt;Частями&lt;button class=&quot;dl-q&quot; data-tip=&quot;lite&quot; aria-label=&quot;Подробнее&quot;&gt;&lt;img src=&quot;data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgMTYgMTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSIyNC9GaWxsL3F1ZXN0aW9uRmlsbCIgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzBfNjQ0KSI+CjxwYXRoIGlkPSJVbmlvbiIgZD0iTTggMC42NjY5OTJDMTIuMDUwMSAwLjY2Njk5MiAxNS4zMzMgMy45NDk5MSAxNS4zMzMgOEMxNS4zMzMgMTIuMDUwMSAxMi4wNTAxIDE1LjMzMyA4IDE1LjMzM0MzLjk0OTkxIDE1LjMzMyAwLjY2Njk5MiAxMi4wNTAxIDAuNjY2OTkyIDhDMC42NjY5OTIgMy45NDk5MSAzLjk0OTkxIDAuNjY2OTkyIDggMC42NjY5OTJaTTggMTBDNy40NDc3MiAxMCA3IDEwLjQ0NzcgNyAxMUM3IDExLjU1MjMgNy40NDc3MiAxMiA4IDEySDguMDA2ODRDOC41NTkwNCAxMS45OTk5IDkuMDA2ODQgMTEuNTUyMiA5LjAwNjg0IDExQzkuMDA2ODQgMTAuNDQ3OCA4LjU1OTA0IDEwLjAwMDEgOC4wMDY4NCAxMEg4Wk04LjAyMzQ0IDQuMzMzMDFDNi45MjA0IDQuMzMzMDEgNS45NTg5MyA1LjA4NDIgNS42OTE0MSA2LjE1NDNMNS42ODY1MiA2LjE3MTg4QzUuNTk3MzcgNi41MjkgNS44MTQ3NSA2Ljg5MTE5IDYuMTcxODggNi45ODA0N0M2LjUyODk3IDcuMDY5NTYgNi44OTEyIDYuODUyMjEgNi45ODA0NyA2LjQ5NTEyTDYuOTg0MzggNi40Nzc1NEM3LjEwMzUxIDYuMDAwOTkgNy41MzIyMyA1LjY2Njk5IDguMDIzNDQgNS42NjY5OUg4LjE3NzczQzguNTYzOTQgNS42NjY5OSA4LjkwMzYgNS45MjI2MyA5LjAwOTc3IDYuMjkzOTVDOS4xMjQxNCA2LjY5NDI0IDguOTM2ODEgNy4xMTk0OCA4LjU2NDQ1IDcuMzA1NjZMNy43MDIxNSA3LjczNzNDNy4zNzI4MyA3LjkwMTk2IDcuMjM4NjYgOC4zMDI1MiA3LjQwMzMyIDguNjMxODRDNy41Njc5OCA4Ljk2MDk3IDcuOTY4NjMgOS4wOTQxMyA4LjI5Nzg1IDguOTI5NjlMOS4xNjExMyA4LjQ5ODA1QzEwLjEwNzMgOC4wMjQ5IDEwLjU4MjYgNi45NDQ5MyAxMC4yOTIgNS45Mjc3M0MxMC4wMjIzIDQuOTgzOTUgOS4xNTkyOSA0LjMzMzAxIDguMTc3NzMgNC4zMzMwMUg4LjAyMzQ0WiIgZmlsbD0iI0M0QzRENCIvPgo8L2c+CjxkZWZzPgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzBfNjQ0Ij4KPHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=&quot; width=&quot;16&quot; height=&quot;16&quot; alt=&quot;&quot;&gt;&lt;/button&gt;&lt;/span&gt;&lt;b&gt;123 000 ₽&lt;/b&gt;&lt;/div&gt;&lt;div class=&quot;dl-bar&quot;&gt;&lt;i style=&quot;width:82%;background:#1ab266&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;
         &lt;div class=&quot;dl-rows&quot;&gt;
           &lt;div class=&quot;dl-r&quot;&gt;&lt;span&gt;Потратили&lt;/span&gt;&lt;b&gt;27 000 ₽&lt;/b&gt;&lt;/div&gt;
-          &lt;div class=&quot;dl-r&quot;&gt;&lt;span&gt;Максимальный лимит&lt;/span&gt;&lt;b&gt;150 000 ₽&lt;/b&gt;&lt;/div&gt;
+          &lt;div class=&quot;dl-r&quot;&gt;&lt;span&gt;Лимит&lt;/span&gt;&lt;b&gt;150 000 ₽&lt;/b&gt;&lt;/div&gt;
         &lt;/div&gt;
       &lt;/div&gt;
       &lt;div class=&quot;dl-c&quot;&gt;
-        &lt;div class=&quot;top&quot;&gt;&lt;div class=&quot;h&quot;&gt;&lt;span&gt;Частями Плюс&lt;/span&gt;&lt;b&gt;73 000 ₽&lt;/b&gt;&lt;/div&gt;&lt;div class=&quot;dl-bar&quot;&gt;&lt;i style=&quot;width:73%;background:#1ab266&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;top&quot;&gt;&lt;div class=&quot;h&quot;&gt;&lt;span&gt;Частями Плюс&lt;button class=&quot;dl-q&quot; data-tip=&quot;plus&quot; aria-label=&quot;Подробнее&quot;&gt;&lt;img src=&quot;data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgMTYgMTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSIyNC9GaWxsL3F1ZXN0aW9uRmlsbCIgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzBfNjQ0KSI+CjxwYXRoIGlkPSJVbmlvbiIgZD0iTTggMC42NjY5OTJDMTIuMDUwMSAwLjY2Njk5MiAxNS4zMzMgMy45NDk5MSAxNS4zMzMgOEMxNS4zMzMgMTIuMDUwMSAxMi4wNTAxIDE1LjMzMyA4IDE1LjMzM0MzLjk0OTkxIDE1LjMzMyAwLjY2Njk5MiAxMi4wNTAxIDAuNjY2OTkyIDhDMC42NjY5OTIgMy45NDk5MSAzLjk0OTkxIDAuNjY2OTkyIDggMC42NjY5OTJaTTggMTBDNy40NDc3MiAxMCA3IDEwLjQ0NzcgNyAxMUM3IDExLjU1MjMgNy40NDc3MiAxMiA4IDEySDguMDA2ODRDOC41NTkwNCAxMS45OTk5IDkuMDA2ODQgMTEuNTUyMiA5LjAwNjg0IDExQzkuMDA2ODQgMTAuNDQ3OCA4LjU1OTA0IDEwLjAwMDEgOC4wMDY4NCAxMEg4Wk04LjAyMzQ0IDQuMzMzMDFDNi45MjA0IDQuMzMzMDEgNS45NTg5MyA1LjA4NDIgNS42OTE0MSA2LjE1NDNMNS42ODY1MiA2LjE3MTg4QzUuNTk3MzcgNi41MjkgNS44MTQ3NSA2Ljg5MTE5IDYuMTcxODggNi45ODA0N0M2LjUyODk3IDcuMDY5NTYgNi44OTEyIDYuODUyMjEgNi45ODA0NyA2LjQ5NTEyTDYuOTg0MzggNi40Nzc1NEM3LjEwMzUxIDYuMDAwOTkgNy41MzIyMyA1LjY2Njk5IDguMDIzNDQgNS42NjY5OUg4LjE3NzczQzguNTYzOTQgNS42NjY5OSA4LjkwMzYgNS45MjI2MyA5LjAwOTc3IDYuMjkzOTVDOS4xMjQxNCA2LjY5NDI0IDguOTM2ODEgNy4xMTk0OCA4LjU2NDQ1IDcuMzA1NjZMNy43MDIxNSA3LjczNzNDNy4zNzI4MyA3LjkwMTk2IDcuMjM4NjYgOC4zMDI1MiA3LjQwMzMyIDguNjMxODRDNy41Njc5OCA4Ljk2MDk3IDcuOTY4NjMgOS4wOTQxMyA4LjI5Nzg1IDguOTI5NjlMOS4xNjExMyA4LjQ5ODA1QzEwLjEwNzMgOC4wMjQ5IDEwLjU4MjYgNi45NDQ5MyAxMC4yOTIgNS45Mjc3M0MxMC4wMjIzIDQuOTgzOTUgOS4xNTkyOSA0LjMzMzAxIDguMTc3NzMgNC4zMzMwMUg4LjAyMzQ0WiIgZmlsbD0iI0M0QzRENCIvPgo8L2c+CjxkZWZzPgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzBfNjQ0Ij4KPHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=&quot; width=&quot;16&quot; height=&quot;16&quot; alt=&quot;&quot;&gt;&lt;/button&gt;&lt;/span&gt;&lt;b&gt;73 000 ₽&lt;/b&gt;&lt;/div&gt;&lt;div class=&quot;dl-bar&quot;&gt;&lt;i style=&quot;width:73%;background:#1ab266&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;
         &lt;div class=&quot;dl-rows&quot;&gt;
           &lt;div class=&quot;dl-r&quot;&gt;&lt;span&gt;Потратили&lt;/span&gt;&lt;b&gt;0 ₽&lt;/b&gt;&lt;/div&gt;
           &lt;div class=&quot;dl-r&quot;&gt;&lt;span&gt;Лимит по договору&lt;/span&gt;&lt;b&gt;100 000 ₽&lt;/b&gt;&lt;/div&gt;
         &lt;/div&gt;
       &lt;/div&gt;
-      &lt;p class=&quot;dl-note&quot;&gt;Покупки в рассрочку и вывод денег могут уменьшать сумму лимита. Также на изменение лимита влияет ваша долговая нагрузка по другим займам или кредитам&lt;/p&gt;
+      &lt;p class=&quot;dl-note&quot;&gt;Ваша долговая нагрузка по другим займам или кредитам тоже может уменьшить доступную сумму для покупок&lt;/p&gt;
     &lt;/div&gt;
-    &lt;div class=&quot;dl-btn&quot;&gt;&lt;button data-dl-close&gt;Понятно&lt;/button&gt;&lt;/div&gt;
+    &lt;div class=&quot;dl-btn&quot;&gt;&lt;button data-dl-close&gt;Закрыть&lt;/button&gt;&lt;/div&gt;
+    &lt;div class=&quot;dl-tip&quot; id=&quot;dl-tip&quot; role=&quot;tooltip&quot; hidden&gt;&lt;svg class=&quot;ar&quot; width=&quot;20&quot; height=&quot;7&quot; viewBox=&quot;75 0 20 7&quot;&gt;&lt;path d=&quot;M85 7C85.8989 7 86.5458 6.47063 87.069 5.94468C87.4292 5.58247 88.0489 4.88475 88.4614 4.42024C88.5251 4.34841 88.584 4.28216 88.6361 4.22359C88.6963 4.15599 88.7645 4.07923 88.8387 3.99566C89.3506 3.41927 90.1505 2.51874 90.5849 2.06622C91.2766 1.34584 91.9616 0.733718 92.998 0.383628C93.9579 0.0604677 95 0 95 0L75 0C75 0 76.0421 0.0604677 77.002 0.383628C78.0384 0.733718 78.7234 1.34584 79.4151 2.06622C79.8495 2.51874 80.6494 3.41928 81.1613 3.99567C81.2356 4.07924 81.3037 4.156 81.3639 4.22359C81.416 4.28216 81.4748 4.34841 81.5386 4.42023C81.9511 4.88473 82.5708 5.58247 82.931 5.94468C83.4542 6.47063 84.1011 7 85 7Z&quot; fill=&quot;#18181b&quot;/&gt;&lt;/svg&gt;&lt;div class=&quot;bx&quot;&gt;&lt;p id=&quot;dl-tip-t&quot;&gt;&lt;/p&gt;&lt;button class=&quot;x&quot; aria-label=&quot;Закрыть подсказку&quot;&gt;&lt;svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path d=&quot;M3.53 3.53a.67.67 0 0 1 .94 0L8 7.06l3.53-3.53a.67.67 0 1 1 .94.94L8.94 8l3.53 3.53a.67.67 0 1 1-.94.94L8 8.94l-3.53 3.53a.67.67 0 1 1-.94-.94L7.06 8 3.53 4.47a.67.67 0 0 1 0-.94Z&quot; fill=&quot;#9b9bab&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;
     &lt;div class=&quot;dl-home&quot;&gt;&lt;img src=&quot;data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjM5MCIgaGVpZ2h0PSIzNCIgdmlld0JveD0iMCAwIDM5MCAzNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IiYjMjQwOyYjMTU5OyYjMTQ4OyYjMTgzOyBIb21lIGluZGljYXRvciAvIGlPUyI+CjxwYXRoIGlkPSJsaW5lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTEzNyAyNEMxMzcgMjIuODk1NCAxMzcuODk1IDIyIDEzOSAyMkgyNTFDMjUyLjEwNSAyMiAyNTMgMjIuODk1NCAyNTMgMjRDMjUzIDI1LjEwNDYgMjUyLjEwNSAyNiAyNTEgMjZIMTM5QzEzNy44OTUgMjYgMTM3IDI1LjEwNDYgMTM3IDI0WiIgZmlsbD0iIzI0MjQyOSIvPgo8L2c+Cjwvc3ZnPgo=&quot; width=&quot;390&quot; height=&quot;34&quot; alt=&quot;&quot;&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
@@ -1553,6 +1571,26 @@ okEl.querySelector(&#x27;[data-ok-home]&#x27;).addEventListener(&#x27;click&#x27
 // Прототип стартует сразу со второго шага корзины (без анимации появления)
 (function(){co.style.transition=&#x27;none&#x27;;co.classList.add(&#x27;open&#x27;);co.setAttribute(&#x27;aria-hidden&#x27;,&#x27;false&#x27;);document.documentElement.style.overflow=&#x27;hidden&#x27;;
   requestAnimationFrame(()=&gt;requestAnimationFrame(()=&gt;{co.style.transition=&#x27;&#x27;}));})();
+
+// Тултипы в детализации: тап по «?» открывает подсказку, крестик или тап мимо — закрывает
+(function(){const dl=document.getElementById(&#x27;dl&#x27;),wrap=dl.querySelector(&#x27;.dl-wrap&#x27;),tip=document.getElementById(&#x27;dl-tip&#x27;),tt=document.getElementById(&#x27;dl-tip-t&#x27;),ar=tip.querySelector(&#x27;.ar&#x27;);
+const T={tot:&#x27;Это общая доступная сумма для оплаты Частями и Частями Плюс. Лимиты не складываются, а использование одного лимита может уменьшать доступную сумму другого&#x27;,
+lite:&#x27;Сумма, которую можно использовать для оплаты. Она учитывает потраченную сумму в обоих продуктах&#x27;,
+plus:&#x27;Сумма, которую можно использовать для оплаты. Она учитывает потраченную сумму по Частями Плюс&#x27;};
+let cur=null;
+function close(){tip.hidden=true;cur=null}
+function open(btn){const k=btn.dataset.tip;if(cur===btn){close();return}cur=btn;tt.textContent=T[k];
+  const above=k===&#x27;tot&#x27;,w=above?298:258,W=wrap.clientWidth;tip.className=&#x27;dl-tip &#x27;+(above?&#x27;dn&#x27;:&#x27;up&#x27;);tip.style.width=w+&#x27;px&#x27;;tip.hidden=false;
+  const wr=wrap.getBoundingClientRect(),br=btn.getBoundingClientRect(),k2=wr.width/W||1;
+  const cx=(br.left+br.width/2-wr.left)/k2,top=(br.top-wr.top)/k2,bot=(br.bottom-wr.top)/k2;
+  const left=Math.max(16,Math.min(W-16-w,cx-(above?85:22)));tip.style.left=left+&#x27;px&#x27;;ar.style.left=(cx-left-10)+&#x27;px&#x27;;
+  tip.style.top=(above?top-5-tip.offsetHeight:bot+4)+&#x27;px&#x27;}
+dl.querySelectorAll(&#x27;.dl-q&#x27;).forEach(b=&gt;b.addEventListener(&#x27;click&#x27;,e=&gt;{e.stopPropagation();open(b)}));
+tip.querySelector(&#x27;.x&#x27;).addEventListener(&#x27;click&#x27;,e=&gt;{e.stopPropagation();close()});
+tip.addEventListener(&#x27;click&#x27;,e=&gt;e.stopPropagation());
+wrap.addEventListener(&#x27;click&#x27;,close);
+dl.querySelectorAll(&#x27;[data-dl-close]&#x27;).forEach(b=&gt;b.addEventListener(&#x27;click&#x27;,close));
+})();
 &lt;/script&gt;
 " title="Прототип экрана WB"></iframe></div>
       
