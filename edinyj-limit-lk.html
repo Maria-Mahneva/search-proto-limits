@@ -1457,7 +1457,8 @@ function coTerm(i){coCur=i;const t=coT[i];coPlus=!!t.plus;
   document.getElementById(&#x27;co-rest&#x27;).textContent=&#x27;И ещё &#x27;+t.rest+&#x27; раз в 2 недели.&#x27;;
   document.getElementById(&#x27;co-tag&#x27;).hidden=coPlus;coPrice();}
 document.querySelectorAll(&#x27;.co-seg button&#x27;).forEach(b=&gt;b.addEventListener(&#x27;click&#x27;,()=&gt;coTerm(+b.dataset.t)));
-document.querySelector(&#x27;.co-sched .more&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;openGs());
+function gsLim(after){const e=document.getElementById(&#x27;gs-lim&#x27;);if(e)e.firstChild.nodeValue=after?&#x27;Доступный лимит до 223 000 ₽&#x27;:&#x27;Доступный лимит до 223 000 ₽&#x27;}
+document.querySelector(&#x27;.co-sched .more&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{gsLim(false);openGs()});
 tm.querySelectorAll(&#x27;[data-tm-close]&#x27;).forEach(el=&gt;el.addEventListener(&#x27;click&#x27;,()=&gt;{tm.classList.remove(&#x27;open&#x27;);tm.setAttribute(&#x27;aria-hidden&#x27;,&#x27;true&#x27;)}));
 tm.querySelectorAll(&#x27;.tm-it[role=&quot;radio&quot;]&#x27;).forEach(b=&gt;b.addEventListener(&#x27;click&#x27;,()=&gt;tm.querySelectorAll(&#x27;.tm-it[role=&quot;radio&quot;]&#x27;).forEach(x=&gt;x.setAttribute(&#x27;aria-checked&#x27;,x===b))));
 document.addEventListener(&#x27;keydown&#x27;,e=&gt;{if(e.key===&#x27;Escape&#x27;&amp;&amp;tm.classList.contains(&#x27;open&#x27;)){e.stopImmediatePropagation();tm.classList.remove(&#x27;open&#x27;)}},true);
@@ -1538,7 +1539,7 @@ function cpgClose(){cpg.classList.remove(&#x27;open&#x27;);cpg.setAttribute(&#x2
 document.getElementById(&#x27;cpg-back&#x27;).addEventListener(&#x27;click&#x27;,cpgClose);
 cpg.querySelector(&#x27;.cpg-chk&#x27;).addEventListener(&#x27;click&#x27;,e=&gt;{const c=e.currentTarget;c.setAttribute(&#x27;aria-checked&#x27;,c.getAttribute(&#x27;aria-checked&#x27;)!==&#x27;true&#x27;)});
 document.getElementById(&#x27;cpg-go&#x27;).addEventListener(&#x27;click&#x27;,okShow);
-document.getElementById(&#x27;ok-gs&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;openGs());
+document.getElementById(&#x27;ok-gs&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{gsLim(true);openGs()});
 okEl.querySelector(&#x27;[data-ok-home]&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{okEl.classList.remove(&#x27;open&#x27;);cpgClose();co.classList.remove(&#x27;open&#x27;);co.setAttribute(&#x27;aria-hidden&#x27;,&#x27;true&#x27;);document.documentElement.style.overflow=&#x27;&#x27;});
 // Прототип стартует сразу со второго шага корзины (без анимации появления)
 (function(){[wl,lk].forEach(e=&gt;{e.style.transition=&#x27;none&#x27;;show(e)});
