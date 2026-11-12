@@ -1482,11 +1482,11 @@ document.getElementById(&#x27;co-split&#x27;).addEventListener(&#x27;click&#x27;
 const tm=document.getElementById(&#x27;tm&#x27;);
 function openTm(){tmAllow();tm.classList.add(&#x27;open&#x27;);tm.setAttribute(&#x27;aria-hidden&#x27;,&#x27;false&#x27;)}
 document.getElementById(&#x27;bs-term&#x27;).addEventListener(&#x27;click&#x27;,openTm);
-// Три покупки сценария: 27 000 ₽ Частями → 33 000 ₽ Частями → 5 000 ₽ Частями Плюс (def — срок по умолчанию)
+// Три покупки сценария: 27 000 ₽ Частями → 33 000 ₽ Частями → 5 000 ₽ Частями Плюс (def — продукт сценария; на 2ШК можно выбрать любой срок)
 const PR=[
- {price:27000,def:0,allow:[0],img:null,t:[{sum:&#x27;6 750&#x27;,n:&#x27;4 платежа&#x27;,rest:&#x27;3 платежа&#x27;},{sum:&#x27;4 550&#x27;,n:&#x27;6 платежей&#x27;,rest:&#x27;5 платежей&#x27;,plus:1,over:&#x27;100 ₽&#x27;},{sum:&#x27;2 300&#x27;,n:&#x27;12 платежей&#x27;,rest:&#x27;11 платежей&#x27;,plus:1,over:&#x27;100 ₽&#x27;}]},
- {price:33000,def:0,allow:[0],img:1,t:[{sum:&#x27;8 250&#x27;,n:&#x27;4 платежа&#x27;,rest:&#x27;3 платежа&#x27;},{sum:&#x27;5 550&#x27;,n:&#x27;6 платежей&#x27;,rest:&#x27;5 платежей&#x27;,plus:1,over:&#x27;100 ₽&#x27;},{sum:&#x27;2 800&#x27;,n:&#x27;12 платежей&#x27;,rest:&#x27;11 платежей&#x27;,plus:1,over:&#x27;100 ₽&#x27;}]},
- {price:5000,def:1,allow:[1,2],img:2,t:[{sum:&#x27;1 250&#x27;,n:&#x27;4 платежа&#x27;,rest:&#x27;3 платежа&#x27;},{sum:&#x27;850&#x27;,n:&#x27;6 платежей&#x27;,rest:&#x27;5 платежей&#x27;,plus:1,over:&#x27;34 ₽&#x27;},{sum:&#x27;435&#x27;,n:&#x27;12 платежей&#x27;,rest:&#x27;11 платежей&#x27;,plus:1,over:&#x27;37 ₽&#x27;}]}];
+ {price:27000,def:0,allow:[0,1,2],img:null,t:[{sum:&#x27;6 750&#x27;,n:&#x27;4 платежа&#x27;,rest:&#x27;3 платежа&#x27;},{sum:&#x27;4 550&#x27;,n:&#x27;6 платежей&#x27;,rest:&#x27;5 платежей&#x27;,plus:1,over:&#x27;100 ₽&#x27;},{sum:&#x27;2 300&#x27;,n:&#x27;12 платежей&#x27;,rest:&#x27;11 платежей&#x27;,plus:1,over:&#x27;100 ₽&#x27;}]},
+ {price:33000,def:0,allow:[0,1,2],img:1,t:[{sum:&#x27;8 250&#x27;,n:&#x27;4 платежа&#x27;,rest:&#x27;3 платежа&#x27;},{sum:&#x27;5 550&#x27;,n:&#x27;6 платежей&#x27;,rest:&#x27;5 платежей&#x27;,plus:1,over:&#x27;100 ₽&#x27;},{sum:&#x27;2 800&#x27;,n:&#x27;12 платежей&#x27;,rest:&#x27;11 платежей&#x27;,plus:1,over:&#x27;100 ₽&#x27;}]},
+ {price:5000,def:1,allow:[0,1,2],img:2,t:[{sum:&#x27;1 250&#x27;,n:&#x27;4 платежа&#x27;,rest:&#x27;3 платежа&#x27;},{sum:&#x27;850&#x27;,n:&#x27;6 платежей&#x27;,rest:&#x27;5 платежей&#x27;,plus:1,over:&#x27;34 ₽&#x27;},{sum:&#x27;435&#x27;,n:&#x27;12 платежей&#x27;,rest:&#x27;11 платежей&#x27;,plus:1,over:&#x27;37 ₽&#x27;}]}];
 let coP=0,coT=PR[0].t,coDone=false;
 const nsF=n=&gt;String(n).replace(/\B(?=(\d{3})+(?!\d))/g,&#x27; &#x27;)+&#x27; ₽&#x27;;
 const co0img=document.getElementById(&#x27;co-photo&#x27;).getAttribute(&#x27;src&#x27;);
@@ -1585,7 +1585,8 @@ function okShow(){
   const t=coT[coCur];
   // Заказ списывает лимит один раз: Частями — из Частями, Частями Плюс — из Плюс (и тем самым из Частями)
   if(!coDone){NS.last=Math.max(NS.last,coP);nsRecs()}
-  if(!coDone&amp;&amp;on){coDone=true;if(t.plus)NS.p+=PR[coP].price;else NS.l+=PR[coP].price;nsRender()}
+  // Лимиты в ЛК идут по сценарию: списываем продуктом шага (def), что бы ни выбрали на 2ШК
+  if(!coDone){coDone=true;if(PR[coP].t[PR[coP].def].plus)NS.p+=PR[coP].price;else NS.l+=PR[coP].price;nsRender()}
   document.getElementById(&#x27;ok-card&#x27;).hidden=!on||!!t.plus;
   document.getElementById(&#x27;ok-next&#x27;).textContent=&#x27;Следующий платёж &#x27;+t.sum+&#x27; ₽ — &#x27;+(pre?&#x27;12\u00a0сентября&#x27;:&#x27;при\u00a0получении&#x27;)+&#x27; с карты ·· 2318&#x27;;
   okEl.querySelector(&#x27;.ok-scr&#x27;).scrollTop=0;okEl.classList.add(&#x27;open&#x27;);okEl.setAttribute(&#x27;aria-hidden&#x27;,&#x27;false&#x27;);
@@ -1624,7 +1625,7 @@ coProd(1);nsRender();
 (function(){const dl=document.getElementById(&#x27;dl&#x27;),wrap=dl.querySelector(&#x27;.dl-wrap&#x27;),tip=document.getElementById(&#x27;dl-tip&#x27;),tt=document.getElementById(&#x27;dl-tip-t&#x27;),ar=tip.querySelector(&#x27;.ar&#x27;);
 const T={tot:&#x27;Это общая доступная сумма для оплаты Частями и Частями Плюс. Лимиты не складываются, а использование одного лимита может уменьшать доступную сумму другого&#x27;,
 lite:&#x27;Сумма, которую можно использовать для оплаты. Она учитывает потраченную сумму в обоих продуктах&#x27;,
-plus:&#x27;Сумма, которую можно использовать для оплаты. Она учитывает потраченную сумму по Частями Плюс&#x27;};
+plus:&#x27;Сумма, которую можно использовать для оплаты. Она учитывает потраченную сумму в обоих продуктах&#x27;};
 let cur=null;
 function close(){tip.hidden=true;cur=null}
 function open(btn){const k=btn.dataset.tip;if(cur===btn){close();return}cur=btn;tt.textContent=T[k];
